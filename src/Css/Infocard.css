@@ -1,0 +1,44 @@
+.infocard-container {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto; 
+    width: 100%; 
+    padding: 10px;
+}
+
+.cardbg {
+    flex: 0 0 auto;
+    width: 300px;
+}
+
+.card {
+    padding: 5px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 10px;
+    border: 0.5px solid rgb(192, 186, 186);
+    background-color: rgba(231, 228, 228, 0.986);
+    height: 380px;
+    max-width: 300px;
+}
+
+.cardimg {
+    height: 200px;
+    border-radius: 10px;
+}
+
+.cardbtn {
+    height: 33px;
+    width: 200px;
+    margin-top: 3px;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    margin-left: 20px;
+    background-color: #1541d1;
+}
+
+.text:hover {
+    color: #1541d1;
+}
