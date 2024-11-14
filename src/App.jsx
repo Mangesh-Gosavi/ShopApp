@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import Home from "./Pages/Home";
@@ -13,6 +13,8 @@ import Info from "./Pages/Info";
 
 function App() {
   return (
+    <BrowserRouter>
+       {/* header */}
       <Routes>
         <Route path="/" element={<Info />} />
         <Route path="/login" element={<Login />} />
@@ -25,6 +27,8 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/order/:userid" element={<Order />} />
       </Routes>
+      {/* footer */}
+    </BrowserRouter>
   );
 }
 
