@@ -1,7 +1,6 @@
 {
   "name": "shopapp",
   "private": true,
-  "homepage": "https://mangesh-gosavi.github.io/ShopApp/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
