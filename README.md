@@ -1,1 +1,1 @@
-Pooja collection admin: https://pooja-collection-eosin-delta.vercel.app/
+Pooja collection: https://pooja-collection-eosin-delta.vercel.app/
