@@ -1,0 +1,225 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Container */
+.body {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Logo Container */
+.logo-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Logo Styles */
+.logoimage {
+    width: 100%;
+    height: auto;
+}
+
+/* Overlay Styles */
+.overlay-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-text h1 {
+  font-size: auto;
+  width: 100%;
+  color: white;
+  margin: 0;
+}
+
+/* Shop By Category Styles */
+.offer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Offer Card Styles */
+.offer-card-container {
+    width: 300px;
+    gap: 10px;
+}
+
+.offer-card {
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid rgb(204, 201, 201);
+    text-align: center;
+}
+
+.offer-card h2 {
+    font-size: 1.2rem;
+}
+
+.offercardimg {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+
+/* Image inside Offer Card */
+.cardimg {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Offer Card Button Container */
+.offer-card-btn-container {
+    margin-top: 10px;
+}
+
+/* Offer Card Button */
+.offer-card button {
+    border-radius: 10px;
+    height: 35px;
+    width: 100%;
+    font-size: 14px;
+    color: white;
+    background-color: #1541d1;
+    border: none;
+    cursor: pointer;
+}
+
+.offer-card button:hover {
+    background-color: #123a8f;
+}
+
+/* Card Images Section */
+.cardimage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.cardimage img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Infocard Styles */
+.infocard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100vw;
+    padding: 20px;
+}
+
+/* Buttons */
+button {
+    border-radius: 10px;
+    height: 35px;
+    width: 100%;
+    max-width: 300px;
+    font-size: 14px;
+    color: white;
+    margin: 0;
+    background-color: #1541d1;
+    border: none;
+}
+
+button:hover {
+    background-color: #123a8f;
+}
+
+/* For devices between 320px to 505px */
+@media (min-width: 320px) and (max-width: 505px) {
+    .offer {
+        flex-direction: column;
+        font-size: 8px;
+    }
+
+    .offer-card-container {
+        width: 100%;
+    }
+
+    .cardimage {
+        width: 100%;
+    }
+
+    .logoimage {
+        width: 100vw;
+    }
+}
+
+/* For devices between 505px and 768px */
+@media (min-width: 505px) and (max-width: 768px) {
+    .offer {
+        flex-direction: column;
+    }
+
+    .cardimage {
+        width: 100%;
+    }
+
+    .offer-card-container {
+        width: 100%;
+    }
+
+    h1,
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .logoimage {
+        width: 100vw;
+    }
+}
+
+/* For larger screens (1024px and up) */
+@media (min-width: 1024px) {
+    .offer {
+        flex-direction: row;
+    }
+
+    .cardimage {
+        width: 700px;
+    }
+}

@@ -1,0 +1,71 @@
+.order {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    
+  }
+  
+  .order h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .order-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .order-card {
+    width: 80vw;
+    max-width: none;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    transition: 0.3s ease;
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .order-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .order-row strong {
+    width: 40%;
+  }
+  
+  .order-row span {
+    width: 60%;
+    word-break: break-word;
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 480px) {
+    .order-card {
+      padding: 16px;
+    }
+  
+    .order-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .order-row strong,
+    .order-row span {
+      width: 100%;
+    }
+  
+    .order-row strong {
+      margin-bottom: 4px;
+    }
+  }
+  

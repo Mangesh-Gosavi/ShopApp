@@ -1,0 +1,207 @@
+/* Container holding both sides */
+.cartalign {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Left side: Cart items */
+.cartleft {
+    width: 60%;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    position: fixed;
+    top: 60px;
+    /* Adjust if you have a fixed header */
+    left: 0;
+    bottom: 0;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.cartlist {
+    margin-bottom: 20px;
+}
+
+.fixed-height {
+    height: 300px;
+}
+
+.cart {
+    display: flex;
+    gap: 20px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 100%;
+    align-items: center;
+}
+
+.detailgap{
+    display: flex;
+    justify-content: space-around;
+}
+
+.cartimg {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.cart-details {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.cart-details h1,
+.cart-details h2 {
+    font-size: 18px;
+    margin: 6px 0;
+}
+
+
+.cartbtn {
+    margin: 8px auto;
+    padding: 8px 16px;
+    border: none;
+    background-color: #1f285e;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cartbtn:hover {
+    background-color: #3a468f;
+}
+
+/* Right side: Order summary */
+.cartright {
+    width: 38%;
+    position: fixed;
+    right: 0;
+    top: 60px;
+    bottom: 0;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+.orderDetails {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 90%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.right h2 {
+    text-align: center;
+    color: #1f285e;
+    margin-bottom: 20px;
+}
+
+.right h4 {
+    margin: 15px 0 5px;
+    color: #333;
+    font-weight: 500;
+}
+
+.addressinput {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.right input[type="radio"] {
+    margin: 10px 10px 10px 0;
+    transform: scale(1.2);
+}
+
+.right label {
+    margin-right: 20px;
+    font-size: 15px;
+    color: #444;
+}
+
+.paybtn {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    background-color: #1f285e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paybtn:hover {
+    background-color: #35408d;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cartbody{
+        padding-top: 70px;
+    }
+
+    .cartalign {
+        flex-direction: column;
+        height: auto;
+        gap: 15px;
+    }
+    
+    .cartleft,
+    .cartright {
+        position: static;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    .fixed-height {
+        height: 500px;
+    }
+
+    .cart {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cartimg {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .addressinput {
+        width: 100%;
+    }
+}
+
+@media (max-width: 910px) {
+    .paymthd{
+        display: flex;
+        flex-direction: column;
+
+    }
+    
+}

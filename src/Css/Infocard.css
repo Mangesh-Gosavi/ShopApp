@@ -1,0 +1,67 @@
+.infocard-container {
+    display: flex;
+    flex-wrap: nowrap;                 
+    overflow-x: auto;               
+    gap: 20px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;        
+    scrollbar-width: thin;          
+  }
+  
+  .infocard-container::-webkit-scrollbar {
+    height: 8px;                      
+  }
+  
+  .infocard-container::-webkit-scrollbar-thumb {
+    background: #aaa;                
+    border-radius: 4px;
+  }
+  
+  .cardbg {
+    flex: 0 0 auto;                
+    width: 300px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .cardbg:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card {
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .cardimg {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .card h1 {
+    font-size: 1.1rem;
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .card h2 {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #444;
+    font-weight: normal;
+  }
+  
+  /* Responsive Tweaks */
+  @media (max-width: 768px) {
+    .card h1,
+    .card h2 {
+      font-size: 0.95rem;
+    }
+  }
+  

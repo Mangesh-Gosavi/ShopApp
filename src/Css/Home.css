@@ -1,0 +1,76 @@
+/* Ensure base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Root container for full-page layout */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: #f9f9f9;
+  padding-top: 70px; 
+}
+
+
+/* Align main content center under header */
+.homealign {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+/* Flex layout for product list */
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 20px; 
+  width: 100%;
+  height: max-content;
+  max-width: 1300px;
+  padding: 40px;
+}
+
+/* Footer styles if needed */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  background-color: #ececec;
+  margin-top: auto;
+}
+
+/* mobile layout */
+@media (max-width: 1024px) {
+  .homealign {
+    padding: 16px;
+  }
+
+  .productList {
+    padding: 16px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .productList {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .productList {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+  }
+}

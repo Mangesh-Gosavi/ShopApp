@@ -1,0 +1,139 @@
+.center-body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* fixed from 100lvh to 100vh */
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  gap: 10px; /* adds space between form elements */
+}
+
+.title {
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  color: #0c2d48;
+  margin-bottom: 10px;
+  width: max-content;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  top: 60%;
+  transform: translateY(-50%);
+  color: #0c2d48;
+  font-size: 1.2rem;
+}
+
+.uinput {
+  height: 40px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uinput:focus {
+  outline: none;
+  border-color: #0c2d48;
+  box-shadow: 0 0 0 2px rgba(12, 45, 72, 0.1);
+}
+
+.password-content {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 60%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
+.loginbtn {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  background-color: #0c2d48;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.loginbtn:hover {
+  background-color: #1541d1;
+  transform: scale(1.05);
+}
+
+.loginbtn:active {
+  transform: scale(1);
+}
+
+.form h4,
+.form h5 {
+  margin: 5px 0;
+}
+
+.form h4 .link,
+.form h5 .link {
+  font-size: 0.9rem;
+  color: #1541d1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #0c2d48;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .uinput {
+    font-size: 0.9rem;
+  }
+
+  .loginbtn {
+    font-size: 1rem;
+    height: 40px;
+  }
+}

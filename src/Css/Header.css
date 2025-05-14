@@ -1,0 +1,187 @@
+/* Header background */
+.headerbg {
+  background-color: #f8f8f8;
+  width: 100%;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Navbar container */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 98%;
+  flex-wrap: nowrap;
+}
+
+/* Logos */
+.biglogo,
+.smalllogo {
+  text-decoration: none;
+}
+
+.biglogo h1,
+.smalllogo h1 {
+  font-size: 24px;
+  color: #1541d1;
+  margin: 0;
+}
+
+.smalllogo {
+  display: none; 
+}
+
+/* Logo section: Adjust layout and prevent overlap */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+/* Search input container */
+.navsearch {
+  flex: 1 1 300px;
+  margin: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.search {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Icons section */
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.cart-icon {
+  margin-right: 10px;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  z-index: 2;
+  min-width: 150px;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-content a:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+/* Search Results Container */
+.search-results-container {
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  padding: 20px;
+  margin-top: 90px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav {
+    width: 96%;
+    justify-content: space-between;
+  }
+
+  .nav-icons {
+    gap: 8px;
+  }
+
+  .logo-section {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .biglogo {
+    display: none;
+  }
+
+  .smalllogo {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .search {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  
+  .nav{
+    width: 90%;
+  }
+  
+  .nav-icons {
+    gap: 6px;
+  }
+
+  .biglogo {
+    display: none;
+  }
+
+  .smalllogo {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .biglogo {
+    display: none;
+  }
+
+  .smalllogo {
+    display: block;
+  }
+}
