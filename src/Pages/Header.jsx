@@ -4,14 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Search from "./search";
 import API_BASE_URL from './config';
-import Popup from './Popup'; // ✅ Import Popup
-import "../Css/Popup.css"; // ✅ Import Popup CSS
+import Popup from './Popup'; 
+import "../Css/Popup.css"; 
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchdata, setsearchdata] = useState('');
-  const [showPopup, setShowPopup] = useState(false); // ✅ Popup visibility
-  const [popupMessage, setPopupMessage] = useState(''); // ✅ Popup text
+  const [showPopup, setShowPopup] = useState(false); 
+  const [popupMessage, setPopupMessage] = useState(''); 
 
   const navigate = useNavigate();
 
@@ -98,7 +98,7 @@ function Header() {
               <div className={isDropdownOpen ? "dropdown-content show" : "dropdown-content"}>
                 <Link to="/Cart">Cart</Link>
                 <Link to="/order">Order Details</Link>
-                <p onClick={handleclick}>Logout</p>
+                <Link onClick={handleclick}>Logout</Link>
               </div>
             </div>
           </div>
