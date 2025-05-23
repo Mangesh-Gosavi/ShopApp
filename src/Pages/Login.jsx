@@ -86,7 +86,6 @@ function Login() {
         <div className='center-body'>
           <form className='form' onSubmit={(e) => handleSubmit(e)}>
             <h1 className='title'>Pooja Collection</h1>
-            <h1 className='title'>Admin Login</h1><br />
 
             <div className='content'>
               <span className='icon'><CircleUser /></span>
