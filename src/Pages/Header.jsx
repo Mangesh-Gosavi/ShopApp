@@ -1,15 +1,16 @@
-import "../Css/Home.css"
-import User from "../Images/circle-user (1).svg"
-import Cart from "../Images/shopping-cart.svg"
-import { Link, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import "../Css/Home.css";
+import User from "../Images/circle-user (1).svg";
+import Cart from "../Images/shopping-cart.svg";
+import { Link, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Search from "./search";
 import API_BASE_URL from './config';
 
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchdata, setsearchdata] = useState('');
-  const navigate = useNavigate();
+  const [logoutSuccess, setLogoutSuccess] = useState(false);
+  const [logoutMessage, setLogoutMessage] = useState('');
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -29,7 +30,7 @@ function Header() {
   }, []);
 
   const handleclick = async (e) => {
-    e.preventDefault(); // Prevent default anchor navigation
+    e.preventDefault();
 
     try {
       const response = await fetch(`${API_BASE_URL}/logout`, {
@@ -41,23 +42,29 @@ function Header() {
 
       if (response.ok) {
         localStorage.removeItem('token');
-        console.log("Logged out successfully");
-        navigate('/login');  // Use React Router navigation here
+        setLogoutMessage("Logout successful");
+        setTimeout(() => setLogoutSuccess(true), 1500);
       } else {
-        console.log("Failed to log out");
+        setLogoutMessage("Failed to log out");
       }
     } catch (error) {
       console.error("Error during logout:", error);
+      setLogoutMessage("An error occurred");
     }
   };
+
+  // Redirect after showing message
+  if (logoutSuccess) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <>
       <div className="headerbg">
         <div className="nav">
           <div className="logo-section">
-            <Link to="/Home" className="biglogo"><h1>Pooja Collection</h1></Link>
-            <Link to="/Home" className="smalllogo"><h1>PJC</h1></Link>
+            <Link to="/home" className="biglogo"><h1>Pooja Collection</h1></Link>
+            <Link to="/home" className="smalllogo"><h1>PJC</h1></Link>
           </div>
 
           <div className="navsearch">
@@ -76,24 +83,33 @@ function Header() {
                   onClick={toggleDropdown}
                   src={User}
                   className="icon user-icon dropbtn"
+                  alt="User"
                 />
               </div>
               <div className={isDropdownOpen ? "dropdown-content show" : "dropdown-content"}>
-                <Link to={`/Cart`}>Cart</Link>
-                <Link to={`/order`}>Order Details</Link>
-                <p onClick={handleclick}>Logout</p>
+                <Link to="/cart">Cart</Link>
+                <Link to="/order">Order Details</Link>
+                <p onClick={handleclick} style={{ cursor: 'pointer', margin: 0 }}>Logout</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Logout message */}
+      {logoutMessage && (
+        <div className="logout-message">
+          {logoutMessage}
+        </div>
+      )}
+
       {searchdata && (
         <div className="search-results-container">
           <Search prodData={searchdata} />
         </div>
       )}
     </>
-  )
+  );
 }
 
 export default Header;
