@@ -1,15 +1,15 @@
 import "../Css/Home.css"
 import User from "../Images/circle-user (1).svg"
 import Cart from "../Images/shopping-cart.svg"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Search from "./search";
 import API_BASE_URL from './config';
 
-
 function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchdata, setsearchdata] = useState('');
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -28,7 +28,9 @@ function Header() {
     };
   }, []);
 
-  const handleclick = async () => {
+  const handleclick = async (e) => {
+    e.preventDefault(); // Prevent default anchor navigation
+
     try {
       const response = await fetch(`${API_BASE_URL}/logout`, {
         method: "GET",
@@ -40,7 +42,7 @@ function Header() {
       if (response.ok) {
         localStorage.removeItem('token');
         console.log("Logged out successfully");
-        window.location.href = '/login';
+        navigate('/login');  // Use React Router navigation here
       } else {
         console.log("Failed to log out");
       }
@@ -48,7 +50,6 @@ function Header() {
       console.error("Error during logout:", error);
     }
   };
-
 
   return (
     <>
@@ -80,22 +81,19 @@ function Header() {
               <div className={isDropdownOpen ? "dropdown-content show" : "dropdown-content"}>
                 <Link to={`/Cart`}>Cart</Link>
                 <Link to={`/order`}>Order Details</Link>
-                <a href="/login" onClick={(e) => { e.preventDefault(); handleclick(); }}>Logout</a>
+                <p onClick={handleclick}>Logout</p>
               </div>
             </div>
           </div>
         </div>
-
       </div>
       {searchdata && (
         <div className="search-results-container">
           <Search prodData={searchdata} />
         </div>
       )}
-
     </>
-
   )
 }
 
-export default Header
+export default Header;
