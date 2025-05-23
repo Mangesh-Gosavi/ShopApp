@@ -73,6 +73,7 @@ function CartItem() {
         },
         body: JSON.stringify(data)
       });
+      await fetchCartData();
     } catch (error) {
       console.log(error);
     }
@@ -99,6 +100,7 @@ function CartItem() {
         const responseData = await response.json();
         if (responseData.success) {
           setCartdata(prevCartData => prevCartData.filter(item => item.productid !== id && item.size !== size));
+          await fetchCartData();
         } else {
           console.error("Failed to remove product");
         }
@@ -134,6 +136,7 @@ function CartItem() {
         setShowPopup(true);
         setPopupMessage("Your Order is Booked");
         setCartdata([]);
+        await fetchCartData();
       } else {
         setShowPopup(true);
         setPopupMessage("Online Method Currently Not Available");
