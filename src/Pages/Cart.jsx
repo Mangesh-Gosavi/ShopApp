@@ -77,8 +77,6 @@ function CartItem() {
       console.log(error);
     }
 
-    window.location.reload();
-
   }
 
   const removeprod = async (e, id, size) => {
@@ -110,7 +108,6 @@ function CartItem() {
     } catch (error) {
       console.log(error);
     }
-    window.location.reload();
 
   }
 
