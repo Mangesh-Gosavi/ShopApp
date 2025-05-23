@@ -134,7 +134,6 @@ function CartItem() {
         setShowPopup(true);
         setPopupMessage("Your Order is Booked");
         setCartdata([]);
-        window.location.reload();
       } else {
         setShowPopup(true);
         setPopupMessage("Online Method Currently Not Available");
