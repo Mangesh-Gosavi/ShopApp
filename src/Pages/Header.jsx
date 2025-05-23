@@ -80,7 +80,7 @@ function Header() {
               <div className={isDropdownOpen ? "dropdown-content show" : "dropdown-content"}>
                 <Link to={`/Cart`}>Cart</Link>
                 <Link to={`/order`}>Order Details</Link>
-                <a href="/login" onClick={handleclick}>Logout</a>
+                <a href="/login" onClick={(e) => { e.preventDefault(); handleclick(); }}>Logout</a>
               </div>
             </div>
           </div>
