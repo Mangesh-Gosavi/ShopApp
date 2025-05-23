@@ -69,7 +69,7 @@ function Signup() {
       if (response.ok) {
         setShowPopup(true);
         setPopupMessage(result.message);
-        navigate("/Home/dashboard");
+        navigate("/Home");
       } else {
         setShowPopup(true);
         setPopupMessage(result.message);
