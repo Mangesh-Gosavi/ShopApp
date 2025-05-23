@@ -73,7 +73,7 @@ function CartItem() {
         },
         body: JSON.stringify(data)
       });
-      await fetchCartData();
+      await fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +100,7 @@ function CartItem() {
         const responseData = await response.json();
         if (responseData.success) {
           setCartdata(prevCartData => prevCartData.filter(item => item.productid !== id && item.size !== size));
-          await fetchCartData();
+          await fetchData();
         } else {
           console.error("Failed to remove product");
         }
