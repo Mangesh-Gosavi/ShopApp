@@ -67,6 +67,7 @@ function Signup() {
 
       const result = await response.json();
       if (response.ok) {
+        if (result.token) localStorage.setItem("authToken", result.token);
         setShowPopup(true);
         setPopupMessage(result.message);
         navigate("/Home");
