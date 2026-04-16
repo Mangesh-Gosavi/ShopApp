@@ -75,11 +75,11 @@ function Info() {
           </div>
 
           <h2>WELCOME REGISTER</h2>
-          <div>
+          <div style={{width: "70%"}}>
             <Signup />
           </div>
 
-          <div>
+          <div style={{width: "100%"}}>
             <Footer />
           </div>
         </div>

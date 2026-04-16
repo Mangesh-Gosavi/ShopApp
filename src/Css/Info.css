@@ -26,7 +26,7 @@ body {
 /* Logo Styles */
 .logoimage {
     width: 100%;
-    height: auto;
+    height: 100lvh;
 }
 
 /* Overlay Styles */
@@ -41,20 +41,20 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: auto;
+    height: 100lvh;
     background: rgba(0, 0, 0, 0.5);
     color: white;
     text-align: center;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
 }
 
 .overlay-text h1 {
-  font-size: auto;
+  font-size: 79px;
   width: 100%;
+  margin-bottom: 50px;
   color: white;
-  margin: 0;
 }
 
 /* Shop By Category Styles */
@@ -127,6 +127,7 @@ body {
 
 /* Card Images Section */
 .cardimage {
+    min-width: 98%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,8 +137,7 @@ body {
 }
 
 .cardimage img {
-    width: 100%;
-    max-width: 700px;
+    min-width: 100%;
     height: auto;
     border-radius: 8px;
 }
@@ -217,9 +217,5 @@ button:hover {
 @media (min-width: 1024px) {
     .offer {
         flex-direction: row;
-    }
-
-    .cardimage {
-        width: 700px;
     }
 }
