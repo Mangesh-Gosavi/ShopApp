@@ -18,16 +18,19 @@ function Login() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const jsonData = JSON.stringify(data);
+    if (submitting) return;
 
+    const jsonData = JSON.stringify(data);
     const token = localStorage.getItem('token');
-    const url = new URL(`${API_BASE_URL}/Login`);
+    const url = new URL(`${API_BASE_URL}/login`);
     url.searchParams.append("data", jsonData);
 
     if (email.length !== 0 && password.length !== 0) {
+      setSubmitting(true);
       try {
         const response = await fetch(url, {
           method: "GET",
@@ -49,6 +52,8 @@ function Login() {
         navigate("/Home");
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setSubmitting(false);
       }
     } else {
       alert("Please Fill All The Details!")
@@ -118,7 +123,9 @@ function Login() {
               </span>
             </div>
 
-            <button className='loginbtn' type="submit">Submit</button>
+            <button className='loginbtn' type="submit" disabled={submitting}>
+              {submitting ? 'Signing in…' : 'Sign in'}
+            </button>
             <h4><Link className='link' to='/forgotpassword'>Forgot Password</Link></h4>
             <h5>Don't have an account? <Link className='link' to="/Signup">Signup</Link></h5>
             {showPopup && <Popup message={popupMessage} onClose={closePopup} />}

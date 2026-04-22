@@ -51,7 +51,7 @@ body {
 }
 
 .overlay-text h1 {
-  font-size: 79px;
+  font-size: 50px;
   width: 100%;
   margin-bottom: 50px;
   color: white;
@@ -79,6 +79,7 @@ body {
     border-radius: 20px;
     border: 1px solid rgb(204, 201, 201);
     text-align: center;
+    height: 400px;
 }
 
 .offer-card h2 {
@@ -92,6 +93,7 @@ body {
     border-radius: 8px;
     margin-bottom: 10px;
     flex-shrink: 0;
+    height: 88%;
 }
 
 
@@ -119,6 +121,7 @@ body {
     background-color: #1541d1;
     border: none;
     cursor: pointer;
+    display: none;
 }
 
 .offer-card button:hover {

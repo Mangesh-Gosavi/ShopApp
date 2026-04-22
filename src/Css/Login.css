@@ -100,6 +100,12 @@
   transform: scale(1);
 }
 
+.loginbtn:disabled {
+  background-color: #7a94a8;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .form h4,
 .form h5 {
   margin: 5px 0;
