@@ -50,7 +50,7 @@ function Search({ prodData }) {
             {searchbg && prodlist.length > 0 && (
                 <div className="prodlist-container">
                     {prodlist.map((item, index) => (
-                        <Link to={`/Product/${item._id}`} className="prod-description">
+                        <Link to={`/Product/${item.productid}`} className="prod-description">
                             <div className="prod-item" key={index}>
                                 <div className="prod-card">
                                     <div className="prod-card-content">
