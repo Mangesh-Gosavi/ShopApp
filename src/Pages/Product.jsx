@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Review from "./Review";
 import { useParams } from 'react-router-dom';
 import "../Css/Product.css";
+import "../Css/Card.css";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import API_BASE_URL from './config';
@@ -38,10 +39,20 @@ function Product() {
 
                     if (response.ok) {
                         const data = await response.json();
-                        if (data && data._id) {
-                            setCartdata([data]);
-                            setProdsize(data.size ? data.size.split(" ") : []);
-                            setProduct(data.product);
+                        console.log("Product.jsx /product response:", data);
+                        const item = Array.isArray(data)
+                            ? data[0]
+                            : (data?.product ?? data?.data ?? data);
+                        const productId = item?.productid ?? item?._id;
+                        if (item && productId != null) {
+                            const normalized = {
+                                ...item,
+                                productid: productId,
+                                stock: item.stock ?? item.stocks ?? 0,
+                            };
+                            setCartdata([normalized]);
+                            setProdsize(item.size ? item.size.split(",") : []);
+                            setProduct(item.product);
                         } else {
                             console.error("Unexpected data format:", data);
                         }
@@ -69,7 +80,13 @@ function Product() {
                     });
 
                     const data = await response.json();
-                    setSimilarProducts(data.filter(item => item.product == product && item._id != id));
+                    const list = Array.isArray(data) ? data : (data?.products ?? data?.data ?? []);
+                    const normalizedList = list.map(item => ({
+                        ...item,
+                        productid: item.productid ?? item._id,
+                        stock: item.stock ?? item.stocks ?? 0,
+                    }));
+                    setSimilarProducts(normalizedList.filter(item => item.product == product && String(item.productid) !== String(id)));
 
                 } catch (error) {
                     console.error(error);
@@ -81,10 +98,10 @@ function Product() {
 
     }, [product, id]);
 
-    const Addprod = async (e, image, _id, brand, product, price) => {
+    const Addprod = async (e, image, productid, brand, product, price) => {
         e.preventDefault();
 
-        const data = { "image": image, "productid": _id, "brand": brand, "product": product, "size": size, "price": price, "quantity": parseInt(selectedQuantity) };
+        const data = { "image": image, "productid": productid, "brand": brand, "product": product, "size": size, "price": price, "quantity": parseInt(selectedQuantity) };
         try {
             const token = localStorage.getItem('token');
             console.log("Token retrieved:", token);
@@ -104,9 +121,9 @@ function Product() {
         }
     };
 
-    const removeprod = async (e, _id) => {
+    const removeprod = async (e, productid) => {
         e.preventDefault();
-        const data = { "productid": _id, "quantity": parseInt(selectedQuantity), "size": size };
+        const data = { "productid": productid, "quantity": parseInt(selectedQuantity), "size": size };
         try {
             const token = localStorage.getItem('token');
             console.log("Token retrieved:", token);
@@ -144,57 +161,83 @@ function Product() {
                         <div className="product-align">
                             <div className="leftside">
                                 <div className="product-list">
-                                    {cartdata.map((item) => (
-                                        <div className="productcard" key={item._id}>
-                                            <img className="productimg" src={item.image} alt="img" />
-                                            <div className="product-details">
-                                                <h2>{item.brand}</h2>
-                                                <h2>{item.description}</h2>
-                                                {item.product === "Shirt" || item.product === "Tshirt" || item.product === "Salwar" ? (
-                                                    <h3>Size:
-                                                        <select name="size" value={size} onChange={(e) => setsize(e.target.value)} id="size">
-                                                            <option value="">Select Size</option>
-                                                            {prodsize.map((item, index) => (
-                                                                <option key={index} value={item}>{item}</option>
-                                                            ))}
-                                                        </select>
-                                                    </h3>
-                                                ) : item.product === "Jeans" ? (
-                                                    <h3>Size:
-                                                        <select name="size" value={size} onChange={(e) => setsize(e.target.value)} id="size">
-                                                            <option value="">Select Size</option>
-                                                            <option value="28">28</option>
-                                                            <option value="30">30</option>
-                                                            <option value="32">32</option>
-                                                            <option value="34">34</option>
-                                                            <option value="36">36</option>
-                                                            <option value="38">38</option>
-                                                            <option value="40">40</option>
-                                                            <option value="42">42</option>
-                                                        </select>
-                                                    </h3>
-                                                ) : null}
-                                                <h3>Price: ₹{item.price}</h3>
-                                                <h2 className={item.stocks <= 20 ? 'out-of-stock' : 'in-stock'}>In stock: {item.stocks}</h2>
-                                                <h3>Quantity:
-                                                    <select name="quantity" value={selectedQuantity} onChange={(e) => setselectedQuantity(e.target.value)} id="quantity">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                    </select>
-                                                </h3>
-                                                <div className="button-group">
-                                                    <button className="productbtn" onClick={(e) => Addprod(e, item.image, item._id, item.brand, item.product, item.price)} type="button">Add Product</button>
-                                                    <button className="productbtn" onClick={(e) => removeprod(e, item._id)} type="button">Remove Product</button>
+                                    {cartdata.length === 0 && (
+                                        <div style={{ padding: 20, textAlign: "center", color: "#888" }}>
+                                            No product data. Check console — response shape may be unexpected.
+                                        </div>
+                                    )}
+                                    {cartdata.map((item) => {
+                                        const stockClass = item.stock <= 0 ? 'out' : item.stock <= 20 ? 'low' : 'in';
+                                        const stockLabel = item.stock <= 0 ? 'Out of Stock' : `${item.stock} in stock`;
+                                        const showSizeDropdown = ["Shirt", "Tshirt", "Salwar", "Jeans"].includes(item.product);
+                                        const sizeOptions = prodsize;
+                                        return (
+                                            <div className="detail-card" key={item.productid}>
+                                                <div className="detail-card-image">
+                                                    <img src={item.image} alt={item.product} loading="lazy" />
+                                                    {item.discount > 0 && (
+                                                        <span className="product-card-badge">{item.discount}% OFF</span>
+                                                    )}
+                                                </div>
+                                                <div className="detail-card-content">
+                                                    <p className="detail-card-brand">{item.brand}</p>
+                                                    <h2 className="detail-card-title">{item.description}</h2>
+
+                                                    <div className="detail-card-price-row">
+                                                        <span className="detail-card-price">₹{item.price}</span>
+                                                        {item.discount > 0 && (
+                                                            <span className="detail-card-discount-text">{item.discount}% off</span>
+                                                        )}
+                                                    </div>
+
+                                                    <span className={`detail-card-stock ${stockClass}`}>{stockLabel}</span>
+
+                                                    <div className="detail-card-divider"></div>
+
+                                                    <div className="detail-card-controls">
+                                                        {showSizeDropdown && (
+                                                            <div className="detail-card-control-row">
+                                                                <label htmlFor="size">Size</label>
+                                                                <select className="detail-card-select" name="size" value={size} onChange={(e) => setsize(e.target.value)} id="size">
+                                                                    <option value="">Select Size</option>
+                                                                    {sizeOptions.map((s, index) => (
+                                                                        <option key={index} value={s}>{s}</option>
+                                                                    ))}
+                                                                </select>
+                                                            </div>
+                                                        )}
+
+                                                        <div className="detail-card-control-row">
+                                                            <label htmlFor="quantity">Quantity</label>
+                                                            <select className="detail-card-select" name="quantity" value={selectedQuantity} onChange={(e) => setselectedQuantity(e.target.value)} id="quantity">
+                                                                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+                                                                    <option key={n} value={n}>{n}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="detail-card-actions">
+                                                        <button
+                                                            className="detail-card-btn primary"
+                                                            type="button"
+                                                            disabled={item.stock <= 0}
+                                                            onClick={(e) => Addprod(e, item.image, item.productid, item.brand, item.product, item.price)}
+                                                        >
+                                                            Add to Cart
+                                                        </button>
+                                                        <button
+                                                            className="detail-card-btn secondary"
+                                                            type="button"
+                                                            onClick={(e) => removeprod(e, item.productid)}
+                                                        >
+                                                            Remove
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
 
@@ -204,20 +247,28 @@ function Product() {
                                     <div className="rightscroll">
                                         <div className="rightcard">
                                             {similarProducts.map((similarProduct) => (
-                                                <div className="similar-product" key={similarProduct._id}>
-                                                    <Link to={`/Product/${similarProduct._id}`}>
-                                                        <img className="cardimg" src={similarProduct.image} alt="img" />
-                                                    </Link>
-                                                    <span>{similarProduct.brand}</span>
-                                                    <span>
-                                                        <Link to={`/Product/${similarProduct._id}`} className="text">
-                                                            {similarProduct.description}
+                                                <div className="product-card" key={similarProduct.productid}>
+                                                    <div className="product-card-image">
+                                                        <Link to={`/Product/${similarProduct.productid}`}>
+                                                            <img src={similarProduct.image} alt={similarProduct.product} loading="lazy" />
                                                         </Link>
-                                                    </span>
-                                                    <span>Price: ₹{similarProduct.price} Discount: {similarProduct.discount}%</span>
-                                                    <h2 className={similarProduct.stocks <= 20 ? 'out-of-stock' : 'in-stock'}>
-                                                        In stock: {similarProduct.stocks}
-                                                    </h2>
+                                                        {similarProduct.discount > 0 && (
+                                                            <span className="product-card-badge">{similarProduct.discount}% OFF</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="product-card-content">
+                                                        <p className="product-card-brand">{similarProduct.brand}</p>
+                                                        <Link to={`/Product/${similarProduct.productid}`} className="text">
+                                                            <h4 className="product-card-title">{similarProduct.description}</h4>
+                                                        </Link>
+                                                        <div className="product-card-price-row">
+                                                            <span className="product-card-price">₹{similarProduct.price}</span>
+                                                        </div>
+                                                        <div className="product-card-meta">
+                                                            <span><strong>Size:</strong> {similarProduct.size}</span>
+                                                            <span><strong>Stock:</strong> {similarProduct.stock > 0 ? similarProduct.stock : 0}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>

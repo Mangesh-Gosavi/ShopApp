@@ -12,50 +12,45 @@ function Review({ productId }) {
   const [popupMessage, setPopupMessage] = useState('');
 
 
+  const fetchReviews = async () => {
+    const token = localStorage.getItem('token');
+    const data = { "productid": parseInt(productId) };
+    const response = await fetch(`${API_BASE_URL}/reviews`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const Data = await response.json();
+      setReviews(Data);
+    }
+  };
+
   useEffect(() => {
-    const fetchReviews = async () => {
-      const token = localStorage.getItem('token');
-      console.log("Token retrieved:", token);
-      const data = { "productid": parseInt(productId) };
-      const response = await fetch(`${API_BASE_URL}/reviews`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
-
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        const Data = await response.json(); // Update reviews state with new review
-        setReviews(Data);
-      }
-    };
-
     fetchReviews();
-  }, []);
+  }, [productId]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
-    console.log("Token retrieved:", token);
     const data = { "email": user, "productid": parseInt(productId), "text": newReview };
     const response = await fetch(`${API_BASE_URL}/addreviews`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         "Authorization": `Bearer ${token}`
-
       },
       body: JSON.stringify(data),
     });
 
     if (response.ok) {
-      const newReviewData = await response.json();
-      setReviews([...reviews, newReviewData]); // Update reviews state with new review
-      setNewReview(''); // Clear input field
+      await fetchReviews();
+      setNewReview('');
       setShowPopup(true);
       setPopupMessage("Review Added successfully")
     } else {

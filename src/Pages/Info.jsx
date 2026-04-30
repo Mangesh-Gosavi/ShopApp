@@ -74,7 +74,7 @@ function Info() {
             <Infocard />
           </div>
 
-          <h2>WELCOME REGISTER</h2>
+          <h2 className="signup-title">WELCOME REGISTER</h2>
           <div style={{width: "70%"}}>
             <Signup />
           </div>

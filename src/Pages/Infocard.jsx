@@ -30,38 +30,43 @@ function Infocard() {
   }, []);
 
   if (loading) {
-    return <p>Loading products...</p>;
+    return <p className="infocard-status">Loading products...</p>;
   }
 
-  if (proddata.length === 0) {
-    return <p>No products available.</p>;
+  const items = Array.isArray(proddata) ? proddata : (proddata?.products ?? proddata?.data ?? []);
+
+  if (items.length === 0) {
+    return <p className="infocard-status">No products available.</p>;
   }
 
   return (
     <div className="infocard-container">
-      {proddata.map((item) => (
-        <div className="cardbg" key={item._id}>
-          <div className="card">
-            <div style={{ width: "100%" }}>
-              <img
-                className="cardimg"
-                src={item.image}
-                alt={item.description}
-              />
-              <h1>{item.brand}</h1>
-              <h1>{item.description}</h1>
-              <h2>
-                Price: ₹{item.price} Discount: {item.discount}%
-              </h2>
-              <h2 style={{ color: item.stocks <= 20 ? "red" : "green" }}>
-                {item.stocks > 0
-                  ? `In Stock: ${item.stocks}`
-                  : <h2 style={{ color: "red" }}>Out of Stock</h2>}
-              </h2>
+      {items.map((item, index) => {
+        const id = item.productid ?? item._id;
+        const stock = item.stock ?? item.stocks ?? 0;
+        return (
+          <div className="infocard-item" key={id ?? index}>
+            <div className="infocard-image">
+              <img src={item.image} alt={item.description} loading="lazy" />
+              {item.discount > 0 && (
+                <span className="infocard-badge">{item.discount}% OFF</span>
+              )}
+            </div>
+            <div className="infocard-content">
+              <span className="infocard-id">#{index + 1}</span>
+              <p className="infocard-brand">{item.brand}</p>
+              <h4 className="infocard-title">{item.description}</h4>
+              <div className="infocard-price-row">
+                <span className="infocard-price">₹{item.price}</span>
+              </div>
+              <div className="infocard-meta">
+                <span><strong>Size:</strong> {item.size}</span>
+                <span><strong>Stock:</strong> {stock > 0 ? stock : 0}</span>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

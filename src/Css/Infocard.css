@@ -1,67 +1,171 @@
 .infocard-container {
-    display: flex;
-    flex-wrap: nowrap;                 
-    overflow-x: auto;               
-    gap: 20px;
-    box-sizing: border-box;
-    scroll-behavior: smooth;        
-    scrollbar-width: thin;          
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 16px 4px 20px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.infocard-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.infocard-container::-webkit-scrollbar-thumb {
+  background: #c4c8d4;
+  border-radius: 4px;
+}
+
+.infocard-container::-webkit-scrollbar-thumb:hover {
+  background: #aab0bf;
+}
+
+.infocard-status {
+  text-align: center;
+  color: #6b7184;
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+.infocard-item {
+  flex: 0 0 auto;
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #eceff5;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(15, 28, 77, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.infocard-item:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 14px 30px rgba(15, 28, 77, 0.14);
+}
+
+.infocard-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #f0f2f8;
+  overflow: hidden;
+}
+
+.infocard-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.infocard-item:hover .infocard-image img {
+  transform: scale(1.05);
+}
+
+.infocard-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #ff5f6d, #ff2d55);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.4px;
+  box-shadow: 0 4px 10px rgba(255, 45, 85, 0.3);
+}
+
+.infocard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 16px;
+  text-align: left;
+  flex-grow: 1;
+}
+
+.infocard-id {
+  font-size: 11px;
+  font-weight: 600;
+  color: #8a90a2;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.infocard-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f1c4d;
+  margin: 0;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.infocard-brand {
+  font-size: 13px;
+  color: #6b7184;
+  margin: 0;
+  font-weight: 500;
+}
+
+.infocard-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.infocard-price {
+  font-size: 19px;
+  font-weight: 700;
+  color: #1541d1;
+}
+
+.infocard-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #e6e8f0;
+  font-size: 13px;
+  color: #4a5066;
+}
+
+.infocard-meta span strong {
+  color: #0f1c4d;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .infocard-item {
+    width: 220px;
   }
-  
-  .infocard-container::-webkit-scrollbar {
-    height: 8px;                      
+
+  .infocard-image {
+    height: 170px;
   }
-  
-  .infocard-container::-webkit-scrollbar-thumb {
-    background: #aaa;                
-    border-radius: 4px;
+
+  .infocard-title {
+    font-size: 15px;
   }
-  
-  .cardbg {
-    flex: 0 0 auto;                
-    width: 300px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
+}
+
+@media (max-width: 480px) {
+  .infocard-item {
+    width: 200px;
   }
-  
-  .cardbg:hover {
-    transform: translateY(-5px);
+
+  .infocard-image {
+    height: 150px;
   }
-  
-  .card {
-    padding: 16px;
-    text-align: center;
-  }
-  
-  .cardimg {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .card h1 {
-    font-size: 1.1rem;
-    margin: 5px 0;
-    color: #333;
-  }
-  
-  .card h2 {
-    font-size: 1rem;
-    margin: 5px 0;
-    color: #444;
-    font-weight: normal;
-  }
-  
-  /* Responsive Tweaks */
-  @media (max-width: 768px) {
-    .card h1,
-    .card h2 {
-      font-size: 0.95rem;
-    }
-  }
-  
+}

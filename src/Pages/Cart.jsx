@@ -169,45 +169,63 @@ function CartItem() {
         <div className='cartbody'>
           <div className='cartalign'>
             <div className='cartleft'>
+              <div className="cart-detail-items">
+                In cart: <strong>{cartdata.length}</strong>
+              </div>
+              {cartdata.length === 0 && (
+                <div className="cart-empty">Your cart is empty.</div>
+              )}
               {cartdata.map((item) => (
                 <div className="cartlist" key={`${item.productid}-${item.size}`}>
                   <div className="fixed-height">
                     <div className="cart">
-                      <img className="cartimg" src={item.image} alt="img" />
+                      <div className="cartimg-wrap">
+                        <img className="cartimg" src={item.image} alt={item.product} loading="lazy" />
+                      </div>
                       <div className="cart-details">
-                        <h1>{item.brand}</h1>
-                        <h2>Price: ₹{item.price}</h2>
-                        <h2>Size: {item.size}</h2>
-                        <h2 className='detailgap'>
-                          <div>
-                            Quantity:
+                        <p className="cart-detail-brand">{item.brand}</p>
+                        <h3 className="cart-detail-title">{item.product}</h3>
+
+                        <div className="cart-detail-price-row">
+                          <span className="cart-detail-price">₹{item.price}</span>
+                          <span className="cart-detail-size-tag">Size: {item.size}</span>
+                        </div>
+
+                        <div className="cart-detail-divider"></div>
+
+                        <div className="cart-detail-controls">
+                          <div className="cart-detail-control-row">
+                            <label htmlFor={`quantity-${item.productid}-${item.size}`}>Quantity</label>
                             <select
+                              className="cart-detail-select"
                               name="quantity"
+                              id={`quantity-${item.productid}-${item.size}`}
                               value={selectedQuantities[item.productid] || 1}
                               onChange={(e) => handleQuantityChange(item.productid, e.target.value)}
-                              id="quantity"
                             >
                               {[...Array(8)].map((_, index) => (
                                 <option key={index + 1} value={index + 1}>{index + 1}</option>
                               ))}
                             </select>
                           </div>
-                          Items: {item.quantity}
-                        </h2>
-                        <button
-                          className="cartbtn"
-                          onClick={(e) => Addprod(e, item.productid, item.brand, item.product, item.price, item.size)}
-                          type="button"
-                        >
-                          Add Product
-                        </button>
-                        <button
-                          className="cartbtn"
-                          onClick={(e) => removeprod(e, item.productid, item.size)}
-                          type="button"
-                        >
-                          Remove Product
-                        </button>
+                        </div>
+
+                        <div className="cart-detail-actions">
+                          <button
+                            className="cart-detail-btn primary"
+                            onClick={(e) => Addprod(e, item.productid, item.brand, item.product, item.price, item.size)}
+                            type="button"
+                          >
+                            Add Product
+                          </button>
+                          <button
+                            className="cart-detail-btn secondary"
+                            onClick={(e) => removeprod(e, item.productid, item.size)}
+                            type="button"
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -218,44 +236,65 @@ function CartItem() {
             <div className='cartright'>
               <div className='orderDetails'>
                 <form className="right" onSubmit={book}>
-                  <h2 className="order-heading">Order Details</h2>
-                  <h4 className="order-row">Sub Total: ₹{subtotal}</h4>
-                  <h4 className="order-row">Delivery Charges: ₹{charge}</h4>
-                  <h4 className="order-row">Total: ₹{price}</h4>
-                  <h4 className="order-row">Delivery Address:</h4>
-                  <input
-                    type="text"
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="addressinput"
-                    required
-                  />
-                  <h4>Please select your payment method</h4>
-                  <div className='paymthd'>
-                    <label htmlFor="offline">
-                      <input
-                        type="radio"
-                        id="offline"
-                        name="method"
-                        onFocus={() => setMethod("COD")}
-                        value="cod"
-                        required
-                      />
-                      Cash on Delivery
-                    </label>
-                    <label htmlFor="online">
-                      <input
-                        type="radio"
-                        id="online"
-                        name="method"
-                        onFocus={() => setMethod("online")}
-                        value="online"
-                        required
-                      />
-                      Online
-                    </label>
-                    <br />
+                  <h2 className="order-heading">Order Summary</h2>
+
+                  <div className="order-row">
+                    <span className="order-row-label">Sub Total</span>
+                    <span className="order-row-value">₹{subtotal}</span>
                   </div>
-                  <button className="paybtn">Proceed to Pay</button>
+                  <div className="order-row">
+                    <span className="order-row-label">Delivery Charges</span>
+                    <span className="order-row-value">₹{charge}</span>
+                  </div>
+
+                  <div className="order-divider"></div>
+
+                  <div className="order-row order-total">
+                    <span className="order-row-label">Total</span>
+                    <span className="order-row-value">₹{price}</span>
+                  </div>
+
+                  <div className="order-field">
+                    <label className="order-field-label" htmlFor="address">Delivery Address</label>
+                    <input
+                      id="address"
+                      type="text"
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="addressinput"
+                      placeholder="Enter your delivery address"
+                      required
+                    />
+                  </div>
+
+                  <div className="order-field">
+                    <span className="order-field-label">Payment Method</span>
+                    <div className='paymthd'>
+                      <label htmlFor="offline" className="paymthd-option">
+                        <input
+                          type="radio"
+                          id="offline"
+                          name="method"
+                          onFocus={() => setMethod("COD")}
+                          value="cod"
+                          required
+                        />
+                        Cash on Delivery
+                      </label>
+                      <label htmlFor="online" className="paymthd-option">
+                        <input
+                          type="radio"
+                          id="online"
+                          name="method"
+                          onFocus={() => setMethod("online")}
+                          value="online"
+                          required
+                        />
+                        Online
+                      </label>
+                    </div>
+                  </div>
+
+                  <button className="paybtn" type="submit">Proceed to Pay</button>
                 </form>
               </div>
             </div>

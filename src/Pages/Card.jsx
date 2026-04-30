@@ -27,29 +27,40 @@ function Card() {
         init();
     }, []);
 
+    const items = Array.isArray(proddata) ? proddata : (proddata?.products ?? proddata?.data ?? []);
+
     return (
-        <>
-            {proddata.map((item) => (
-                <div className="cardbg" key={item._id}>
-                    <div className="card">
-                        <div className="card-content">
-                            <Link to={`/Product/${item._id}`}>
-                                <img className="cardimg" src={item.image} alt="img" />
+        <div className="product-cards">
+            {items.map((item, index) => {
+                const id = item.productid ?? item._id;
+                const stock = item.stock ?? item.stocks ?? 0;
+                return (
+                    <div className="product-card" key={id ?? index}>
+                        <div className="product-card-image">
+                            <Link to={`/Product/${id}`}>
+                                <img src={item.image} alt={item.product} loading="lazy" />
                             </Link>
-                            <h1 className="brand">{item.brand}</h1>
-                            <Link to={`/Product/${item._id}`} className="text">
-                                <h1 className="description">{item.description}</h1>
+                            {item.discount > 0 && (
+                                <span className="product-card-badge">{item.discount}% OFF</span>
+                            )}
+                        </div>
+                        <div className="product-card-content">
+                            <p className="product-card-brand">{item.brand}</p>
+                            <Link to={`/Product/${id}`} className="text">
+                                <h4 className="product-card-title">{item.description}</h4>
                             </Link>
-                            <h2 className="price">Price: ₹{item.price} &nbsp; Discount: {item.discount}%</h2>
-                            <h2 className={`stock ${item.stocks <= 0 ? "out" : item.stocks <= 20 ? "low" : "in"}`}>
-                                {item.stocks > 0 ? `Instocks: ${item.stocks}` : "Out of Stock"}
-                            </h2>
+                            <div className="product-card-price-row">
+                                <span className="product-card-price">₹{item.price}</span>
+                            </div>
+                            <div className="product-card-meta">
+                                <span><strong>Size:</strong> {item.size}</span>
+                                <span><strong>Stock:</strong> {stock > 0 ? stock : 0}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
-        </>
-
+                );
+            })}
+        </div>
     )
 }
 
