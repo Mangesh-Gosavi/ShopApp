@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../Css/Search.css';
 import API_BASE_URL from './config';
 
-function Search({ prodData }) {
+function Search({ prodData, onResultClick }) {
     const [prodlist, setProdlist] = useState([]);
     const [searchbg, setsearchbg] = useState(false);
 
@@ -37,21 +37,13 @@ function Search({ prodData }) {
         init();
     }, [prodData]);
 
-    useEffect(() => {
-        if (searchbg) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    }, [searchbg]);
-
     return (
         <>
             {searchbg && prodlist.length > 0 && (
                 <div className="prodlist-container">
                     {prodlist.map((item, index) => (
-                        <Link to={`/Product/${item.productid}`} className="prod-description">
-                            <div className="prod-item" key={index}>
+                        <Link to={`/Product/${item.productid}`} className="prod-description" onClick={onResultClick} key={index}>
+                            <div className="prod-item">
                                 <div className="prod-card">
                                     <div className="prod-card-content">
                                         <img className="prod-img" src={item.image} alt="img" />

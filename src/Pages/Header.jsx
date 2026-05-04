@@ -79,6 +79,7 @@ function Header() {
           <div className="navsearch">
             <input
               className="search"
+              value={searchdata}
               onChange={(e) => setsearchdata(e.target.value)}
               placeholder="Search Here"
               type="text"
@@ -107,7 +108,7 @@ function Header() {
 
       {searchdata && (
         <div className="search-results-container">
-          <Search prodData={searchdata} />
+          <Search prodData={searchdata} onResultClick={() => setsearchdata('')} />
         </div>
       )}
 
